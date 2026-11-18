@@ -1,5 +1,5 @@
 // ---- Settings ----
-const API_URL   = "https://mental-heath-score-4.onrender.com";
+const API_URL   = "https://mental-heath-score-4.onrender.com/predict";
 const MAX_SCORE = 10;   // top of your model's score scale (affects the gauge only)
 // ------------------
 
