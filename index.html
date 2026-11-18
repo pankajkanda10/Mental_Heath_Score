@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MindMeter · Mental Health Score Predictor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><i></i>MindMeter</div>
+    <h1>See how daily habits shape mental health</h1>
+    <p>Enter a student's profile, screen time and lifestyle. The model returns an estimated mental health score in seconds.</p>
+  </header>
+
+  <div class="layout">
+    <form id="form" class="card" novalidate>
+      <fieldset>
+        <legend>About the student</legend>
+        <div class="grid">
+          <div>
+            <label class="lbl" for="age">Age</label>
+            <input type="number" id="age" min="10" max="100" value="20">
+          </div>
+          <div>
+            <label class="lbl" for="country">Country</label>
+            <input type="text" id="country" list="countries" value="India" placeholder="Start typing…">
+            <datalist id="countries"><option>India</option><option>USA</option><option>Canada</option><option>Australia</option><option>UK</option><option>Germany</option><option>Mexico</option><option>Turkey</option><option>France</option></datalist>
+          </div>
+          <div>
+            <span class="lbl">Gender</span>
+            <div class="chips" data-name="gender">
+              <label class="chip"><input type="radio" name="gender" value="Male" checked><span>Male</span></label>
+              <label class="chip"><input type="radio" name="gender" value="Female"><span>Female</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <span class="lbl">Academic level</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="academic_level" value="High School"><span>High School</span></label>
+              <label class="chip"><input type="radio" name="academic_level" value="Undergraduate" checked><span>Undergraduate</span></label>
+              <label class="chip"><input type="radio" name="academic_level" value="Graduate"><span>Graduate</span></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Social media</legend>
+        <div class="grid">
+          <div class="full">
+            <span class="lbl">Most used platform</span>
+            <div class="chips" id="platforms"></div>
+          </div>
+          <div class="full">
+            <span class="lbl">Main purpose</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="purpose_of_use" value="Entertainment" checked><span>Entertainment</span></label>
+              <label class="chip"><input type="radio" name="purpose_of_use" value="Education"><span>Education</span></label>
+              <label class="chip"><input type="radio" name="purpose_of_use" value="Networking"><span>Networking</span></label>
+              <label class="chip"><input type="radio" name="purpose_of_use" value="News"><span>News</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <div class="slider-head"><label class="lbl" for="avg_daily_usage_hours">Daily usage</label><output for="avg_daily_usage_hours"></output></div>
+            <input type="range" id="avg_daily_usage_hours" min="0" max="24" step="0.5" value="4">
+          </div>
+          <div class="full">
+            <label class="lbl" for="daily_unlocks">Phone unlocks per day</label>
+            <input type="number" id="daily_unlocks" min="0" value="60">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Daily life</legend>
+        <div class="grid">
+          <div class="full">
+            <div class="slider-head"><label class="lbl" for="study_hours">Study time</label><output for="study_hours"></output></div>
+            <input type="range" id="study_hours" min="0" max="24" step="0.5" value="4">
+          </div>
+          <div class="full">
+            <div class="slider-head"><label class="lbl" for="physical_activity_hours">Physical activity</label><output for="physical_activity_hours"></output></div>
+            <input type="range" id="physical_activity_hours" min="0" max="24" step="0.5" value="1">
+          </div>
+          <div class="full">
+            <div class="slider-head"><label class="lbl" for="sleep_hours_per_night">Sleep per night</label><output for="sleep_hours_per_night"></output></div>
+            <input type="range" id="sleep_hours_per_night" min="0" max="24" step="0.5" value="7">
+          </div>
+          <div class="full">
+            <span class="lbl">Stress level</span>
+            <div class="chips stress">
+              <label class="chip"><input type="radio" name="stress_level" value="Low"><span>Low</span></label>
+              <label class="chip"><input type="radio" name="stress_level" value="Medium" checked><span>Medium</span></label>
+              <label class="chip"><input type="radio" name="stress_level" value="High"><span>High</span></label>
+              <label class="chip"><input type="radio" name="stress_level" value="Very High"><span>Very High</span></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="submit" id="submitBtn">Predict mental health score</button>
+    </form>
+
+    <aside class="card result" aria-live="polite">
+      <h2>Predicted score</h2>
+      <svg class="gauge" viewBox="0 0 200 110" role="img" aria-label="Score gauge">
+        <path class="track" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="14" stroke-linecap="round"/>
+        <path class="fill" id="gaugeFill" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="14" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="score" id="score">–</div>
+      <div class="scale">out of <span id="maxLabel"></span></div>
+      <span class="badge" id="badge">Waiting for input</span>
+      <p class="message" id="message">Adjust the details and select Predict mental health score.</p>
+      <p class="note">This is a statistical estimate, not a diagnosis. If you are worried about someone's wellbeing, please talk to a qualified professional.</p>
+    </aside>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

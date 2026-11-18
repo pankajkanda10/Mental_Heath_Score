@@ -1,0 +1,30 @@
+[project]
+name = "s-p1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "pankajkanda10", email = "pankajkanda2110@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.164.0",
+    "ipykernel>=7.4.0",
+    "joblib>=1.6.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.11.2",
+    "notebook>=7.6.4",
+    "numpy>=2.5.4",
+    "pandas>=3.1.0",
+    "pydantic>=2.14.3",
+    "scikit-learn>=1.9.1",
+    "seaborn>=0.13.2",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+s-p1 = "s_p1:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
