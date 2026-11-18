@@ -10,7 +10,7 @@ model = joblib.load("Mental_Health_Model.pkl")
 
 app= FastAPI()
 
-app.add.middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins =["*"],
     allow_methods =["*"],
@@ -49,7 +49,7 @@ top_countries = ['Other','India','USA','Canada','Australia','UK','Germany','Mexi
 @app.post('/predict', response_model=PredictionResponse)
 def predict(data: StudentData):
 
-    country_group = data.country if data.Country in top_countries else "Other"
+    country_group = data.country if data.country in top_countries else "Other"
 
     input_row = pd.DataFrame([{
         'Age'                       :data.age,
